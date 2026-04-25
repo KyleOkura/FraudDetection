@@ -44,7 +44,7 @@ The dataset is sourced from Kaggle: [Credit Card Fraud Detection](https://www.ka
 This project addresses the challenge of detecting credit card fraud in a heavily **class-imbalanced** dataset where fewer than 0.2% of transactions are fraudulent. A naive model that labels everything as legitimate would achieve ~99.8% accuracy while being useless in practice. To combat this, the project uses several techniques:
 
 - **Stratified train/test split** — ensures both sets contain a representative proportion of fraud cases
-- **Weighted loss function** — assigns a higher penalty (`pos_weight=100`) to missed fraud predictions so the model does not ignore the minority class
+- **Weighted loss function** — assigns a higher penalty to missed fraud predictions so the model does not ignore the minority class
 - **Threshold tuning** — instead of the default 0.5 decision threshold, the optimal threshold is selected by maximizing the fraud F1-score on a precision-recall curve
 
 ### Models
@@ -102,9 +102,3 @@ pip install pandas matplotlib seaborn scikit-learn torch numpy
 1. Complete the dataset download steps above so `creditcard.csv` is in the project root.
 2. Open `fraud.ipynb` in Jupyter or VS Code.
 3. Run all cells from top to bottom.
-
-The notebook is organized into the following sections:
-1. **Exploratory Analysis** — class distribution, time/amount distributions, null checks
-2. **Preprocessing** — scaling `Time` and `Amount`, stratified split, class weighting
-3. **Model v1** — baseline MLP training and evaluation
-4. **Model v2** — BatchNorm MLP with precision-recall threshold tuning and final evaluation
