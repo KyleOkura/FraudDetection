@@ -47,14 +47,7 @@ This project addresses the challenge of detecting credit card fraud in a heavily
 - **Weighted loss function** — assigns a higher penalty to missed fraud predictions so the model does not ignore the minority class
 - **Threshold tuning** — instead of the default 0.5 decision threshold, the optimal threshold is selected by maximizing the fraud F1-score on a precision-recall curve
 
-### Models
-
-**FraudMLP (v1)** — Baseline 3-layer perceptron with Dropout regularization:
-```
-Linear(30 → 64) → ReLU → Dropout(0.3)
-Linear(64 → 32) → ReLU → Dropout(0.3)
-Linear(32 → 1)
-```
+### Model
 
 **FraudMLP_v2** — Improved version adding Batch Normalization after each linear layer for faster, more stable convergence:
 ```
@@ -63,7 +56,6 @@ Linear(64 → 32) → BatchNorm1d → ReLU → Dropout(0.3)
 Linear(32 → 1)
 ```
 
-Both models use:
 - **Loss:** `BCEWithLogitsLoss` (numerically stable binary cross-entropy)
 - **Optimizer:** Adam (`lr=1e-3`)
 - **Scheduler:** `ReduceLROnPlateau` — halves the learning rate when validation loss plateaus
@@ -72,7 +64,6 @@ Both models use:
 
 | Model | ROC-AUC | Accuracy | Fraud Precision | Fraud Recall | Fraud F1 |
 |---|---|---|---|---|---|
-| FraudMLP v1 (threshold=0.5) | 0.9752 | 99.82% | 0.48 | 0.88 | 0.62 |
 | FraudMLP v2 (tuned threshold) | 0.9789 | 99.94% | 0.83 | 0.81 | **0.82** |
 
 Accuracy alone is a misleading metric for this dataset. **ROC-AUC** and **Fraud F1** are the primary indicators of model quality.
